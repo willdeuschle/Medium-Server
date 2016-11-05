@@ -30,7 +30,7 @@ def medium_page(event, context):
                 pass
             else:
                 new_datum = clean_text(datum)
-                new_datum_string = new_datum.encode('ascii', 'ignore')
+                new_datum_string = new_datum
                 data_arr.append(new_datum_string)
         except Exception, e:
             print "The exception: ", e
