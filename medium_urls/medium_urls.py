@@ -16,5 +16,6 @@ def medium_urls(event, context):
         soup_page = BeautifulSoup(page, 'html.parser')
     titles = soup_page.find_all(['h2', 'h3'], {'class': lambda x: 'graf--title' in x.split()})
     links = soup_page.find_all('a', {'data-action': 'open-post'})
-    links_and_titles = zip(titles, links)
-    return [{'title': title.string, 'url': link['data-action-value'}) for (title, link) in links_and_titles]
+    avatars = soup_page.find_all('img', {'class': lambda x: 'avatar-image' in x.split()})
+    links_titles_avatars = zip(titles, links, avatars)
+    return [{'title': title.string, 'url': link['data-action-value'], 'avatar': avatar['src']} for (title, link, avatar) in links_titles_avatars]
