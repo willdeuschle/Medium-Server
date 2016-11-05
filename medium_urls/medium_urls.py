@@ -17,5 +17,12 @@ def medium_urls(event, context):
     titles = soup_page.find_all(['h2', 'h3'], {'class': lambda x: 'graf--title' in x.split()})
     links = soup_page.find_all('a', {'data-action': 'open-post'})
     avatars = soup_page.find_all('img', {'class': lambda x: 'avatar-image' in x.split()})
-    links_titles_avatars = zip(titles, links, avatars)
-    return [{'title': title.string, 'url': link['data-action-value'], 'avatar': avatar['src']} for (title, link, avatar) in links_titles_avatars]
+    authors = []
+    for a in soup_page.find_all('a', {'data-action': 'show-user-card'}):
+        if 'avatar' in a.get('class'):
+            continue
+        else:
+            authors.append(a)
+
+    links_titles_avatars_authors = zip(titles, links, avatars, authors)
+    return [{'title': title.string, 'url': link['data-action-value'], 'avatar': avatar['src'], 'author': author.string} for (title, link, avatar, author) in links_titles_avatars_authors]
