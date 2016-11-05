@@ -17,4 +17,4 @@ def medium_urls(event, context):
     titles = soup_page.find_all(['h2', 'h3'], {'class': lambda x: 'graf--title' in x.split()})
     links = soup_page.find_all('a', {'data-action': 'open-post'})
     links_and_titles = zip(titles, links)
-    return [{'title': title.string.encode('ascii', 'ignore'), 'url': link['data-action-value'}) for (title, link) in links_and_titles]
+    return [{'title': title.string, 'url': link['data-action-value'}) for (title, link) in links_and_titles]
