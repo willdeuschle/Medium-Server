@@ -13,4 +13,4 @@ def medium_page(event, context):
     str_content = str(content)
     plain_content = plaintext(str_content)
     decoded_content = unidecode.unidecode(plain_content)
-    return simplejson.dumps(decoded_content.replace('\n', ' '))
+    return decoded_content
